@@ -1,18 +1,29 @@
 package br.com.banksystem.bsContrib.business;
 
-import br.gov.frameworkdemoiselle.lifecycle.Startup;
-import br.gov.frameworkdemoiselle.stereotype.BusinessController;
-import br.gov.frameworkdemoiselle.template.DelegateCrud;
-import br.gov.frameworkdemoiselle.transaction.Transactional;
-
+import org.apache.commons.lang.StringUtils;
+import br.com.banksystem.bsContrib.business.filtro.FiltroBookmark;
 import br.com.banksystem.bsContrib.domain.Bookmark;
 import br.com.banksystem.bsContrib.persistence.BookmarkDAO;
+import br.com.banksystem.bsContrib.persistence.expressao.TipoExpressao;
+import br.com.banksystem.bsContrib.persistence.expressao.implementacao.ExpressaoUnariaImpl;
+import br.com.banksystem.bsContrib.persistence.filtro.FiltroGenerico;
+import br.gov.frameworkdemoiselle.lifecycle.Startup;
+import br.gov.frameworkdemoiselle.stereotype.BusinessController;
+import br.gov.frameworkdemoiselle.transaction.Transactional;
 
 @BusinessController
-public class BookmarkBC extends DelegateCrud<Bookmark, Long, BookmarkDAO> {
-	
+public class BookmarkBC extends GenericBC<Bookmark, Long, BookmarkDAO> {
+
 	private static final long serialVersionUID = 1L;
-	
+
+	@Override
+	protected void adicionarParametrosConsulta(FiltroGenerico<Bookmark> filtro) {
+		if (!StringUtils.isEmpty(filtro.getEntidadeConsulta().getDescription())) {
+			((FiltroBookmark) filtro).addExpressao(new ExpressaoUnariaImpl(TipoExpressao.LIKE, FiltroBookmark.DESCRICAO, filtro.getEntidadeConsulta()
+					.getDescription()));
+		}
+	}
+
 	@Startup
 	@Transactional
 	public void load() {
@@ -29,5 +40,5 @@ public class BookmarkBC extends DelegateCrud<Bookmark, Long, BookmarkDAO> {
 			insert(new Bookmark("Downloads", "http://download.frameworkdemoiselle.gov.br"));
 		}
 	}
-	
+
 }

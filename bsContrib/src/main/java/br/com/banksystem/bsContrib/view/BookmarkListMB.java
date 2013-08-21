@@ -1,23 +1,22 @@
 package br.com.banksystem.bsContrib.view;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.inject.Inject;
-
+import br.com.banksystem.bsContrib.business.BookmarkBC;
+import br.com.banksystem.bsContrib.business.filtro.FiltroBookmark;
+import br.com.banksystem.bsContrib.domain.Bookmark;
+import br.com.banksystem.bsContrib.view.template.GenericListPageBean;
 import br.gov.frameworkdemoiselle.annotation.NextView;
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
-import br.gov.frameworkdemoiselle.template.AbstractListPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
-
-import br.com.banksystem.bsContrib.business.BookmarkBC;
-import br.com.banksystem.bsContrib.domain.Bookmark;
 
 @ViewController
 @NextView("/bookmark_edit.xhtml")
 @PreviousView("/bookmark_list.xhtml")
-public class BookmarkListMB extends AbstractListPageBean<Bookmark, Long> {
+public class BookmarkListMB extends GenericListPageBean<Bookmark, Long, FiltroBookmark> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -25,8 +24,13 @@ public class BookmarkListMB extends AbstractListPageBean<Bookmark, Long> {
 	private BookmarkBC bc;
 
 	@Override
-	protected List<Bookmark> handleResultList() {
-		return this.bc.findAll();
+	public Bookmark buscarEntidade(Serializable id) {
+		return bc.load(Long.valueOf((String) id));
+	}
+
+	@Override
+	public List<Bookmark> consultar() {
+		return bc.consultar(getFiltro());
 	}
 
 	@Transactional
@@ -42,6 +46,16 @@ public class BookmarkListMB extends AbstractListPageBean<Bookmark, Long> {
 			}
 		}
 		return getPreviousView();
+	}
+
+	@Override
+	protected List<Bookmark> handleResultList() {
+		return this.bc.findAll();
+	}
+
+	@Override
+	public boolean isSelecaoHabilitada() {
+		return false;
 	}
 
 }

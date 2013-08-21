@@ -36,6 +36,7 @@
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
+			<version>3.5</version><!--$NO-MVN-MAN-VER$-->
 			<scope>compile</scope>
 		</dependency>
 

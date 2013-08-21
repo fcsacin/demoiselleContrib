@@ -18,7 +18,7 @@ import br.com.banksystem.bsContrib.persistence.filtro.FiltroGenerico;
 import br.com.banksystem.bsContrib.persistence.filtro.FiltroHQLSQL;
 import br.gov.frameworkdemoiselle.template.JPACrud;
 
-public abstract class DAOGenerico<T, I extends Serializable> extends JPACrud<T, I> {
+public abstract class GenericDAO<T, I extends Serializable> extends JPACrud<T, I> {
 
 	private static final long serialVersionUID = -1903869057514956978L;
 
