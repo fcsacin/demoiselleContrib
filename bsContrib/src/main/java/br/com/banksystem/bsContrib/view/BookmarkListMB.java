@@ -53,9 +53,4 @@ public class BookmarkListMB extends GenericListPageBean<Bookmark, Long, FiltroBo
 		return this.bc.findAll();
 	}
 
-	@Override
-	public boolean isSelecaoHabilitada() {
-		return false;
-	}
-
 }

@@ -130,6 +130,18 @@ public abstract class FiltroHQLSQL<T> extends FiltroGenerico<T> {
 		if (getCamposOrdenados() != null || getCampoOrdenadoModel() != null) {
 			sb.append(" ORDER BY ");
 			boolean addSeparador = false;
+			if (getCampoOrdenadoModel() != null) {
+				String campoOrder = null;
+				if (isConsultaSQL()) {
+					campoOrder = getSQLCampoOrdenadoModel();
+				} else {
+					campoOrder = montarStringCampoOrdenado(getCampoOrdenadoModel());
+				}
+				if (campoOrder != null) {
+					appendCampo(sb, campoOrder, addSeparador);
+					addSeparador = true;
+				}
+			}
 			if (getCamposOrdenados() != null) {
 				for (int cont = 0; cont < getCamposOrdenados().size(); cont++) {
 					Order campo = getCamposOrdenados().get(cont);

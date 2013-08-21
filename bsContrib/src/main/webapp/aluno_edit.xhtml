@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/templateEdit.xhtml">
+
+	<ui:param name="MBEAN" value="#{alunoEditMB}" />
+
+	<ui:define name="campos">
+		<p:fieldset legend="#{messages['aluno.edit.titulo']}" toggleable="true"
+			toggleSpeed="500">
+			<h:panelGrid id="fields" columns="3">
+				<h:outputLabel value="#{messages['aluno.label.id']}: " for="id"
+					styleClass="text-input" />
+				<h:outputText id="id" value="#{alunoEditMB.bean.id}" />
+				<p:message for="id" />
+
+				<h:outputLabel value="#{messages['aluno.label.nome']}: *"
+					for="nome" styleClass="text-input" />
+				<p:inputText id="nome"
+					value="#{alunoEditMB.bean.nome}"
+					required="true"
+					title="#{messages['aluno.label.nome']}" />
+				<p:message for="nome" />
+
+				<h:outputLabel value="#{messages['aluno.label.altura']}: "
+					for="altura" styleClass="text-input" />
+				<p:inputText id="altura" value="#{alunoEditMB.bean.altura}"
+					title="#{messages['aluno.label.altura']}" />
+				<p:message for="altura" />
+				
+				<h:outputLabel value="#{messages['aluno.label.nascimento']}: "
+					for="nascimento" styleClass="text-input" />
+				<p:calendar id="nascimento" value="#{alunoEditMB.bean.nascimento}"
+					title="#{messages['aluno.label.nascimento']}" />
+				<p:message for="nascimento" />
+				
+				<h:outputLabel value="#{messages['aluno.label.turmas']}: "
+					for="turmas" styleClass="text-input" />
+				<p:pickList id="turmas" value="#{alunoEditMB.modelTurmas}"
+					title="#{messages['aluno.label.turmas']}" 
+					converter="pojoConverter"
+					addAllLabel="TODOS"
+					addLabel="ADD" removeAllLabel="REMOVER TODOS"
+					removeLabel="REM" var="item"
+					itemValue="#{item}" itemLabel="#{item.nome}"/>
+				<p:message for="turmas" />
+			</h:panelGrid>
+		</p:fieldset>
+	</ui:define>
+
+</ui:composition>

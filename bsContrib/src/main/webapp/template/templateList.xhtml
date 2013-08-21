@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+
+			<ui:insert name="filtros" />
+
+			<ui:insert name="botoes">
+				<p:toolbar>
+					<p:toolbarGroup align="left">
+						<p:commandButton title="#{messages['button.list']}"
+							actionListener="#{MBEAN.acaoConsultar}" ajax="true"
+							update="list" value="#{messages['button.list']}"
+							label="#{messages['button.list']}" />
+
+						<p:commandButton title="#{messages['button.new']}"
+							icon="ui-icon-document" action="#{MBEAN.getNextView}"
+							actionListener="#{MBEAN.clear}" ajax="false" />
+
+						<p:commandButton title="#{messages['button.delete']}"
+							icon="ui-icon-trash" onclick="confirmation.show()" type="button"
+							immediate="true" ajax="false" />
+
+						<p:confirmDialog message="#{messages['label.confirm.delete']}"
+							showEffect="bounce" hideEffect="explode"
+							header="#{messages['label.dialog.alert']}!" severity="alert"
+							widgetVar="confirmation">
+
+							<h:commandButton value="#{messages['button.dialog.yes']}"
+								action="#{MBEAN.deleteSelection}"
+								actionListener="#{MBEAN.clear}" />
+							<h:commandButton value="#{messages['button.dialog.no']}"
+								onclick="confirmation.hide()" type="button" />
+						</p:confirmDialog>
+					</p:toolbarGroup>
+				</p:toolbar>
+			</ui:insert>
+
+			<ui:insert name="tabelaResultado">
+				<p:dataTable id="list" var="bean"
+					value="#{MBEAN.dataModel}" lazy="true" editable="false"
+					rows="#{MBEAN.filtro.tamanhoPagina}">
+					<f:facet name="header">#{TITULO_TABELA}</f:facet>
+					<p:column style="width:5%;">
+						<h:selectBooleanCheckbox
+							value="#{MBEAN.selection[bean.id]}" />
+					</p:column>
+					<ui:insert name="tabelaCampos"></ui:insert>
+				</p:dataTable>
+			</ui:insert>
+		</h:form>
+	</ui:define>
+</ui:composition>

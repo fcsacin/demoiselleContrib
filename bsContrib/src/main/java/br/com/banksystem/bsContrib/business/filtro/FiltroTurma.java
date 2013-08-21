@@ -18,7 +18,7 @@ public class FiltroTurma extends FiltroHQLSQL<Turma> {
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT ");
 		sb.append(getCamposSelecionados());
-		sb.append("FROM Turma t ");
+		sb.append(" FROM Turma t ");
 		boolean where = false;
 		if (!StringUtils.isEmpty(getEntidadeConsulta().getNome())) {
 			where = append(sb, where, "upper(t.nome) LIKE :nome");

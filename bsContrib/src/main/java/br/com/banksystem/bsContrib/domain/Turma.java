@@ -29,6 +29,12 @@ public class Turma implements Serializable, IPojo<Long> {
 		super();
 	}
 
+	public Turma(String nome, TipoTurma tipo) {
+		super();
+		this.nome = nome;
+		this.tipoTurma = tipo;
+	}
+
 	@Override
 	public Long getId() {
 		return id;

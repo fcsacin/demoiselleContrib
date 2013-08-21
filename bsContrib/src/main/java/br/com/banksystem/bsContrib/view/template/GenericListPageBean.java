@@ -65,6 +65,11 @@ public abstract class GenericListPageBean<T extends IPojo<I>, I extends Serializ
 		}
 	}
 
+	@Override
+	public boolean isSelecaoHabilitada() {
+		return false;
+	}
+
 	public void setFiltro(F filtro) {
 		this.filtro = filtro;
 	}

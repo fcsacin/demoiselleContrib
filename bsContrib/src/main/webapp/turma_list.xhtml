@@ -1,0 +1,55 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/templateList.xhtml">
+
+	<ui:param name="MBEAN" value="#{turmaListMB}" />
+	<ui:param name="TITULO_TABELA" value="#{messages['turma.list.tabela']}" />
+
+	<ui:define name="filtros">
+		<h:panelGrid columns="2">
+			<h:outputLabel value="#{messages['turma.label.nome']}"
+				for="labelNome" />
+			<p:inputText id="labelNome"
+				value="#{turmaListMB.filtro.entidadeConsulta.nome}"
+				style="width: 150px;" maxlength="50" />
+
+			<h:outputLabel value="#{messages['turma.label.tipoTurma']}"
+				for="labelTipo" />
+			<p:selectOneMenu id="labelTipo"
+				value="#{turmaListMB.filtro.entidadeConsulta.tipoTurma}"
+				converter="pojoConverter" style="width: 150px;">
+				<f:selectItem itemLabel="" />
+				<f:selectItems value="#{turmaListMB.listaTipo}" var="item"
+					itemValue="#{item}" itemLabel="#{item}" />
+			</p:selectOneMenu>
+		</h:panelGrid>
+	</ui:define>
+
+
+	<ui:define name="tabelaCampos">
+		<p:column style="width:5%;" sortBy="#{bean.id}">
+			<f:facet name="header">#{messages['turma.label.id']}</f:facet>
+			<h:outputText value="#{bean.id}" />
+		</p:column>
+		<p:column sortBy="#{bean.nome}">
+			<f:facet name="header">#{messages['turma.label.nome']}</f:facet>
+			<h:commandLink action="#{turmaListMB.getNextView}"
+				actionListener="#{turmaListMB.clear}">
+				<h:outputText value="#{bean.nome}" />
+				<f:param name="id" value="#{bean.id}" />
+			</h:commandLink>
+		</p:column>
+		<p:column sortBy="#{bean.tipoTurma}">
+			<f:facet name="header">#{messages['turma.label.tipoTurma']}</f:facet>
+			<h:commandLink action="#{turmaListMB.getNextView}"
+				actionListener="#{turmaListMB.clear}">
+				<h:outputText value="#{bean.tipoTurma}" />
+				<f:param name="id" value="#{bean.id}" />
+			</h:commandLink>
+		</p:column>
+	</ui:define>
+	
+</ui:composition>

@@ -8,6 +8,16 @@
 				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/bookmark_edit.jsf" />
 				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/bookmark_list.jsf" />
 			</p:submenu>
+			
+			<p:submenu label="#{messages['menu.turma']}">
+				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/turma_edit.jsf" />
+				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/turma_list.jsf" />
+			</p:submenu>
+			
+			<p:submenu label="#{messages['menu.aluno']}">
+				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/aluno_edit.jsf" />
+				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/aluno_list.jsf" />
+			</p:submenu>
 
 			<p:menuitem value="#{messages['menu.menuitem.quit']}" url="http://www.frameworkdemoiselle.gov.br/"
 				action="#{securityContext.logout}" />

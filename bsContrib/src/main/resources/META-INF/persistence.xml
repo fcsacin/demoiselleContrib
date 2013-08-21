@@ -9,6 +9,8 @@
 		<non-jta-data-source>java:jboss/datasources/ExampleDS</non-jta-data-source>
 
 		<class>br.com.banksystem.bsContrib.domain.Bookmark</class>
+		<class>br.com.banksystem.bsContrib.domain.Turma</class>
+		<class>br.com.banksystem.bsContrib.domain.Aluno</class>
 
 		<properties>
 			<property name="hibernate.show_sql" value="true" />
