@@ -1,8 +1,5 @@
 package br.com.banksystem.bsContrib.view;
 
-import java.io.Serializable;
-import java.util.Iterator;
-import java.util.List;
 import javax.inject.Inject;
 import br.com.banksystem.bsContrib.business.BookmarkBC;
 import br.com.banksystem.bsContrib.business.filtro.FiltroBookmark;
@@ -11,7 +8,6 @@ import br.com.banksystem.bsContrib.view.template.GenericListPageBean;
 import br.gov.frameworkdemoiselle.annotation.NextView;
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
-import br.gov.frameworkdemoiselle.transaction.Transactional;
 
 @ViewController
 @NextView("/bookmark_edit.xhtml")
@@ -24,33 +20,8 @@ public class BookmarkListMB extends GenericListPageBean<Bookmark, Long, FiltroBo
 	private BookmarkBC bc;
 
 	@Override
-	public Bookmark buscarEntidade(Serializable id) {
-		return bc.load(Long.valueOf((String) id));
-	}
-
-	@Override
-	public List<Bookmark> consultar() {
-		return bc.consultar(getFiltro());
-	}
-
-	@Transactional
-	public String deleteSelection() {
-		boolean delete;
-		for (Iterator<Long> iter = getSelection().keySet().iterator(); iter.hasNext();) {
-			Long id = iter.next();
-			delete = getSelection().get(id);
-
-			if (delete) {
-				bc.delete(id);
-				iter.remove();
-			}
-		}
-		return getPreviousView();
-	}
-
-	@Override
-	protected List<Bookmark> handleResultList() {
-		return this.bc.findAll();
+	protected BookmarkBC getBC() {
+		return bc;
 	}
 
 }

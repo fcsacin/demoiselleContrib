@@ -1,11 +1,15 @@
 package br.com.banksystem.bsContrib.view.template;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.List;
 import javax.faces.event.ActionEvent;
+import br.com.banksystem.bsContrib.business.GenericBC;
 import br.com.banksystem.bsContrib.domain.IPojo;
+import br.com.banksystem.bsContrib.persistence.GenericDAO;
 import br.com.banksystem.bsContrib.persistence.filtro.FiltroGenerico;
 import br.gov.frameworkdemoiselle.template.AbstractListPageBean;
+import br.gov.frameworkdemoiselle.transaction.Transactional;
 import br.gov.frameworkdemoiselle.util.Reflections;
 
 public abstract class GenericListPageBean<T extends IPojo<I>, I extends Serializable, F extends FiltroGenerico<T>> extends AbstractListPageBean<T, I>
@@ -24,6 +28,32 @@ public abstract class GenericListPageBean<T extends IPojo<I>, I extends Serializ
 		getFiltro().limpar();
 		getDataModel().clear();
 	}
+
+	@Override
+	public T buscarEntidade(Serializable id) {
+		return getBC().load((I) id);
+	}
+
+	@Override
+	public List<T> consultar() {
+		return getBC().consultar(getFiltro());
+	}
+
+	@Transactional
+	public void deleteSelection(ActionEvent event) {
+		boolean delete;
+		for (Iterator<I> iter = getSelection().keySet().iterator(); iter.hasNext();) {
+			I id = iter.next();
+			delete = getSelection().get(id);
+
+			if (delete) {
+				getBC().delete(id);
+				iter.remove();
+			}
+		}
+	}
+
+	protected abstract <C extends GenericBC<T, I, GenericDAO<T, I>>> C getBC();
 
 	@Override
 	public DemoiselleLazyModel<T> getDataModel() {
@@ -50,7 +80,6 @@ public abstract class GenericListPageBean<T extends IPojo<I>, I extends Serializ
 
 	@Override
 	protected List<T> handleResultList() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -68,6 +97,10 @@ public abstract class GenericListPageBean<T extends IPojo<I>, I extends Serializ
 	@Override
 	public boolean isSelecaoHabilitada() {
 		return false;
+	}
+
+	public void limpar(ActionEvent event) {
+		super.clear();
 	}
 
 	public void setFiltro(F filtro) {

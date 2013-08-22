@@ -14,13 +14,14 @@
 				<p:toolbar>
 					<p:toolbarGroup align="left">
 						<p:commandButton title="#{messages['button.list']}"
-							actionListener="#{MBEAN.acaoConsultar}" ajax="true"
+							actionListener="#{MBEAN.acaoConsultar}"
+							ajax="true"
 							update="list" value="#{messages['button.list']}"
 							label="#{messages['button.list']}" />
 
-						<p:commandButton title="#{messages['button.new']}"
+						<p:commandButton title="#{messages['button.new']}"							
 							icon="ui-icon-document" action="#{MBEAN.getNextView}"
-							actionListener="#{MBEAN.clear}" ajax="false" />
+							ajax="false" />
 
 						<p:commandButton title="#{messages['button.delete']}"
 							icon="ui-icon-trash" onclick="confirmation.show()" type="button"
@@ -31,10 +32,12 @@
 							header="#{messages['label.dialog.alert']}!" severity="alert"
 							widgetVar="confirmation">
 
-							<h:commandButton value="#{messages['button.dialog.yes']}"
-								action="#{MBEAN.deleteSelection}"
-								actionListener="#{MBEAN.clear}" />
-							<h:commandButton value="#{messages['button.dialog.no']}"
+							<p:commandButton value="#{messages['button.dialog.yes']}"
+								actionListener="#{MBEAN.deleteSelection}" ajax="true"
+								update="list"
+								oncomplete="confirmation.hide()" />
+							<p:commandButton value="#{messages['button.dialog.no']}"
+								ajax="true"
 								onclick="confirmation.hide()" type="button" />
 						</p:confirmDialog>
 					</p:toolbarGroup>
@@ -44,7 +47,8 @@
 			<ui:insert name="tabelaResultado">
 				<p:dataTable id="list" var="bean"
 					value="#{MBEAN.dataModel}" lazy="true" editable="false"
-					rows="#{MBEAN.filtro.tamanhoPagina}">
+					rows="#{MBEAN.filtro.tamanhoPagina}" paginator="true" pageLinks="5"
+					paginatorPosition="top">
 					<f:facet name="header">#{TITULO_TABELA}</f:facet>
 					<p:column style="width:5%;">
 						<h:selectBooleanCheckbox

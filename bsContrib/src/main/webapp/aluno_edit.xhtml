@@ -33,6 +33,7 @@
 				<h:outputLabel value="#{messages['aluno.label.nascimento']}: "
 					for="nascimento" styleClass="text-input" />
 				<p:calendar id="nascimento" value="#{alunoEditMB.bean.nascimento}"
+					locale="pt_BR" pattern="dd/MM/yyyy"
 					title="#{messages['aluno.label.nascimento']}" />
 				<p:message for="nascimento" />
 				
@@ -41,9 +42,11 @@
 				<p:pickList id="turmas" value="#{alunoEditMB.modelTurmas}"
 					title="#{messages['aluno.label.turmas']}" 
 					converter="pojoConverter"
-					addAllLabel="TODOS"
-					addLabel="ADD" removeAllLabel="REMOVER TODOS"
-					removeLabel="REM" var="item"
+					addAllLabel="#{messages['button.picklist.addAll']}"
+					addLabel="#{messages['button.picklist.add']}" 
+					removeAllLabel="#{messages['button.picklist.removeAll']}"
+					removeLabel="#{messages['button.picklist.remove']}" 
+					var="item"
 					itemValue="#{item}" itemLabel="#{item.nome}"/>
 				<p:message for="turmas" />
 			</h:panelGrid>

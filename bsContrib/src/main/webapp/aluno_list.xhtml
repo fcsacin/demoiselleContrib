@@ -11,12 +11,56 @@
 
 	<ui:define name="filtros">
 		<h:panelGrid columns="2">
-			<h:outputLabel value="#{messages['aluno.label.nome']}"
-				for="nome" />
+			<h:outputLabel value="#{messages['aluno.label.nome']}" for="nome" />
 			<p:inputText id="nome"
 				value="#{alunoListMB.filtro.entidadeConsulta.nome}"
 				style="width: 150px;" />
+
+			<h:outputLabel value="#{messages['aluno.list.label.altura']}" />
+			<h:column>
+				<p:inputMask mask="9?99" value="#{alunoListMB.filtro.alturaInicial}" />
+				<h:outputText value="e" />
+				<p:inputMask mask="9?99" value="#{alunoListMB.filtro.alturaFinal}" />
+			</h:column>
 		</h:panelGrid>
+	</ui:define>
+
+	<ui:define name="tabelaCampos">
+		<p:column style="width:5%;" sortBy="#{bean.id}">
+			<f:facet name="header">#{messages['aluno.label.id']}</f:facet>
+			<h:commandLink action="#{alunoListMB.getNextView}"
+				actionListener="#{alunoListMB.clear}">
+				<h:outputText value="#{bean.id}" />
+				<f:param name="id" value="#{bean.id}" />
+			</h:commandLink>
+		</p:column>
+		<p:column style="width:60%;" sortBy="#{bean.nome}">
+			<f:facet name="header">#{messages['aluno.label.nome']}</f:facet>
+			<h:commandLink action="#{alunoListMB.getNextView}"
+				actionListener="#{alunoListMB.clear}">
+				<h:outputText value="#{bean.nome}" />
+				<f:param name="id" value="#{bean.id}" />
+			</h:commandLink>
+		</p:column>
+		<p:column style="width:15%;" sortBy="#{bean.altura}">
+			<f:facet name="header">#{messages['aluno.label.altura']}</f:facet>
+			<h:commandLink action="#{alunoListMB.getNextView}"
+				actionListener="#{alunoListMB.clear}">
+				<h:outputText value="#{bean.altura}" />
+				<f:param name="id" value="#{bean.id}" />
+			</h:commandLink>
+		</p:column>
+		<p:column style="width:20%;" sortBy="#{bean.nascimento}">
+			<f:facet name="header">#{messages['aluno.label.nascimento']}</f:facet>
+			<h:commandLink action="#{alunoListMB.getNextView}"
+				actionListener="#{alunoListMB.clear}">
+				<h:outputText value="#{bean.nascimento}">
+					<f:convertDateTime locale="pt_BR" timeStyle="short"
+						dateStyle="date" pattern="dd/MM/yyyy" />
+				</h:outputText>
+				<f:param name="id" value="#{bean.id}" />
+			</h:commandLink>
+		</p:column>
 	</ui:define>
 
 

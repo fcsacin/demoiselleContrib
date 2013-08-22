@@ -2,28 +2,15 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
-
- 	<!-- If you are using tomcat6/tomcat7/gae then uncomment this listener -->
- 	<!--
-	<listener>
-		<listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
-	</listener>
- 	-->
-
- 	<!-- If you are using servlet 2.5 then uncomment this listener -->
- 	<!--
-	<listener>
-		<listener-class>br.gov.frameworkdemoiselle.util.ServletListener</listener-class>
-	</listener>
-	<filter>
-		<filter-name>Demoiselle Servlet Filter</filter-name>
-		<filter-class>br.gov.frameworkdemoiselle.util.ServletFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>Demoiselle Servlet Filter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
- 	-->
+	
+	<context-param>
+		<param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+		<param-value>true</param-value>
+	</context-param>	
 
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>

@@ -1,6 +1,5 @@
 package br.com.banksystem.bsContrib.view;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,13 +26,8 @@ public class TurmaListMB extends GenericListPageBean<Turma, Long, FiltroTurma> {
 	private List<TipoTurma> listaTipo;
 
 	@Override
-	public Turma buscarEntidade(Serializable id) {
-		return turmaBC.load(Long.valueOf((String) id));
-	}
-
-	@Override
-	public List<Turma> consultar() {
-		return turmaBC.consultar(getFiltro());
+	protected TurmaBC getBC() {
+		return turmaBC;
 	}
 
 	public List<TipoTurma> getListaTipo() {

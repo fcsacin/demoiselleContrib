@@ -1,7 +1,5 @@
 package br.com.banksystem.bsContrib.view;
 
-import java.io.Serializable;
-import java.util.List;
 import javax.inject.Inject;
 import br.com.banksystem.bsContrib.business.AlunoBC;
 import br.com.banksystem.bsContrib.business.filtro.FiltroAluno;
@@ -22,13 +20,8 @@ public class AlunoListMB extends GenericListPageBean<Aluno, Long, FiltroAluno> {
 	private AlunoBC alunoBC;
 
 	@Override
-	public Aluno buscarEntidade(Serializable id) {
-		return alunoBC.load(Long.valueOf((String) id));
-	}
-
-	@Override
-	public List<Aluno> consultar() {
-		return alunoBC.consultar(getFiltro());
+	protected AlunoBC getBC() {
+		return alunoBC;
 	}
 
 }

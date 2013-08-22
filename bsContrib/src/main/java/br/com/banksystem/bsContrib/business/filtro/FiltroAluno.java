@@ -13,4 +13,24 @@ public class FiltroAluno extends FiltroCriteriaGenerico<Aluno> {
 
 	public static final String NASCIMENTO = "nascimento";
 
+	private Integer alturaInicial;
+
+	private Integer alturaFinal;
+
+	public Integer getAlturaFinal() {
+		return alturaFinal;
+	}
+
+	public Integer getAlturaInicial() {
+		return alturaInicial;
+	}
+
+	public void setAlturaFinal(Integer alturaFinal) {
+		this.alturaFinal = alturaFinal;
+	}
+
+	public void setAlturaInicial(Integer alturaInicial) {
+		this.alturaInicial = alturaInicial;
+	}
+
 }
