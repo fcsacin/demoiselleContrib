@@ -13,6 +13,8 @@ public class FiltroAluno extends FiltroCriteriaGenerico<Aluno> {
 
 	public static final String NASCIMENTO = "nascimento";
 
+	public static final String FILHOS = "filhos";
+
 	private Integer alturaInicial;
 
 	private Integer alturaFinal;

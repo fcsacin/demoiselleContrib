@@ -26,6 +26,8 @@ public class Aluno implements Serializable, IPojo<Long> {
 
 	private Integer altura;
 
+	private Integer filhos;
+
 	@Temporal(TemporalType.DATE)
 	private Date nascimento;
 
@@ -37,14 +39,19 @@ public class Aluno implements Serializable, IPojo<Long> {
 		super();
 	}
 
-	public Aluno(String nome, Integer altura) {
+	public Aluno(String nome, Integer altura, Integer filhos) {
 		super();
 		this.nome = nome;
 		this.altura = altura;
+		this.filhos = filhos;
 	}
 
 	public Integer getAltura() {
 		return altura;
+	}
+
+	public Integer getFilhos() {
+		return filhos;
 	}
 
 	@Override
@@ -66,6 +73,10 @@ public class Aluno implements Serializable, IPojo<Long> {
 
 	public void setAltura(Integer altura) {
 		this.altura = altura;
+	}
+
+	public void setFilhos(Integer filhos) {
+		this.filhos = filhos;
 	}
 
 	public void setId(Long id) {
